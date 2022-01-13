@@ -16,9 +16,12 @@ inputs:
 
       You can set a custom pull request title, body, branch and commit messages, see [Usage](https://github.com/gr2m/create-or-update-pull-request-action#usage).
   branch:
-    description: "Branch name"
+    description: "Branch name -> the name of the PR-feature-branch"
     required: true
     default: create-or-update-pull-request-action
+  target-branch:
+    description: "Name of target branch -> the target of the PR. If not given, the repository default branch defined as GITHUB_REF is used"
+    required: false    
   author:
     description: Commit author name & email address. Must be in the form "Name <email@domain.com>"
     required: true

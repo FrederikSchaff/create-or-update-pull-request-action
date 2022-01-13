@@ -34,7 +34,7 @@ async function main() {
       "GITHUB_REF missing, must be set to the repository's default branch"
     );
     return;
-  }
+  }  
 
   const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
@@ -47,6 +47,7 @@ async function main() {
       title: core.getInput("title"),
       body: core.getInput("body"),
       branch: core.getInput("branch").replace(/^refs\/heads\//, ""),
+      targetBranch: core.getInput("targetBranch"),
       path: core.getInput("path"),
       commitMessage: core.getInput("commit-message"),
       author: core.getInput("author"),
@@ -70,14 +71,19 @@ async function main() {
       process.exit(1);
     }
 
-    const {
-      data: { default_branch },
-    } = await octokit.request(`GET /repos/{owner}/{repo}`, {
-      owner,
-      repo,
-    });
-    const DEFAULT_BRANCH = default_branch;
-    core.debug(`DEFAULT_BRANCH: ${DEFAULT_BRANCH}`);
+    if (!targetBranch) {
+      const {
+        data: { default_branch },
+      } = await octokit.request(`GET /repos/{owner}/{repo}`, {
+        owner,
+        repo,
+      });
+      const DEFAULT_BRANCH = default_branch;
+      core.debug(`DEFAULT_BRANCH: ${DEFAULT_BRANCH}`);
+    } else {
+      const DEFAULT_BRANCH = targetBranch;
+      core.debug(`using defined branch as merge target: "${DEFAULT_BRANCH}", overwriting DEFAULT_BRANCH`);
+    }    
 
     const { hasChanges } = await getLocalChanges(inputs.path);
 
