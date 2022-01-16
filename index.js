@@ -71,7 +71,7 @@ async function main() {
       process.exit(1);
     }
 
-    if (!targetBranch) {
+    if (! (targetBranch === "GITHUB_REF")) {
       const {
         data: { default_branch },
       } = await octokit.request(`GET /repos/{owner}/{repo}`, {
