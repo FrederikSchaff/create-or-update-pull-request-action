@@ -21,7 +21,7 @@ inputs:
     default: create-or-update-pull-request-action
   target-branch:
     description: "Name of target branch -> the target of the PR. If not given, the repository default branch defined as GITHUB_REF is used"
-    required: false    
+    required: false
   author:
     description: Commit author name & email address. Must be in the form "Name <email@domain.com>"
     required: true

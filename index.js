@@ -47,7 +47,7 @@ async function main() {
       title: core.getInput("title"),
       body: core.getInput("body"),
       branch: core.getInput("branch").replace(/^refs\/heads\//, ""),
-      targetBranch: core.getInput("targetBranch"),
+      targetBranch: core.getInput("target-branch"),
       path: core.getInput("path"),
       commitMessage: core.getInput("commit-message"),
       author: core.getInput("author"),
