@@ -78,12 +78,12 @@ async function main() {
       repo,
     });
     const DEFAULT_BRANCH = default_branch;
-    core.debug(`DEFAULT_BRANCH: ${DEFAULT_BRANCH}`);
+    core.info(`DEFAULT_BRANCH: ${DEFAULT_BRANCH}`);
 
-  if (!(inputs.targetBranch === "GITHUB_REF")) {
+  if (inputs.targetBranch) {
       const DEFAULT_BRANCH = inputs.targetBranch;
-      core.debug(`overwriting default branch with defined branch as merge target: "${DEFAULT_BRANCH}"`);
-    }    
+      core.info(`Overwriting default branch with defined branch as merge target: "${DEFAULT_BRANCH}"`);
+    }
 
     const { hasChanges } = await getLocalChanges(inputs.path);
 
