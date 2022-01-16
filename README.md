@@ -38,6 +38,7 @@ with:
   title: "My pull request title"
   body: "My pull request body"
   branch: "my-pull-request-base-branch"
+  target-branch: "alternative target branch for the PR, otherwise the repository default branch (for example main or master) is used"
   path: "lib/"
   commit-message: "My commit message for uncommitted changes in lib/ folder"
   author: "Lorem J. Ipsum <lorem@example.com>"
