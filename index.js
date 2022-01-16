@@ -70,19 +70,19 @@ async function main() {
       );
       process.exit(1);
     }
+    
+    const {
+      data: { default_branch },
+    } = await octokit.request(`GET /repos/{owner}/{repo}`, {
+      owner,
+      repo,
+    });
+    const DEFAULT_BRANCH = default_branch;
+    core.debug(`DEFAULT_BRANCH: ${DEFAULT_BRANCH}`);
 
-    if (inputs.targetBranch === "GITHUB_REF") {
-      const {
-        data: { default_branch },
-      } = await octokit.request(`GET /repos/{owner}/{repo}`, {
-        owner,
-        repo,
-      });
-      const DEFAULT_BRANCH = default_branch;
-      core.debug(`DEFAULT_BRANCH: ${DEFAULT_BRANCH}`);
-    } else {
+  if (!(inputs.targetBranch === "GITHUB_REF")) {
       const DEFAULT_BRANCH = inputs.targetBranch;
-      core.debug(`using defined branch as merge target: "${DEFAULT_BRANCH}", overwriting DEFAULT_BRANCH`);
+      core.debug(`overwriting default branch with defined branch as merge target: "${DEFAULT_BRANCH}"`);
     }    
 
     const { hasChanges } = await getLocalChanges(inputs.path);
